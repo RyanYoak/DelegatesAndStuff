@@ -37,5 +37,39 @@ namespace DelegatesAndStuff
             };
             doItMultipleTimes(10, "And I'll do it again!");
         }
+
+        [Fact]
+        public void FuncTypes()
+        {
+            // Func types are built in delegate types for methods
+            // that return somethign
+            // can take up to 16 arguments
+            // Arguments go first and last is what is returned
+
+            Func<string, int> getLengthOf = (s) => s.Length;
+            Assert.Equal(9, getLengthOf("Han, Solo"));
+
+            Func<int, int, int> mathOp;
+            mathOp = (a, b) => a + b;
+            Assert.Equal(4, mathOp(2, 2));
+
+            mathOp = (a, b) => a * b;
+            Assert.Equal(9, mathOp(3, 3));
+
+            var calculator = new Dictionary<char, Func<int, int, int>>()
+            {
+                { '+', (a, b) => a + b },
+                { '-', (a, b) => a - b },
+                { '*', (a, b) => a * b },
+                { '/', (a, b) => a / b },
+                { '%', (a, b) => a % b }
+            };
+
+            var sum = calculator['+'](10, 2);
+            Assert.Equal(12, sum);
+
+            var product = calculator['*'](5, 5);
+            Assert.Equal(25, product);
+        }
     }
 }
